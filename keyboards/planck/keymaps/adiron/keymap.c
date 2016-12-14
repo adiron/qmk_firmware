@@ -1,5 +1,7 @@
 #include "keymap.h"
 
+
+// Layer names start with an underscore.
 #define _QWERTY 0
 #define _NUMPAD 1
 #define _RAISE  2
@@ -8,6 +10,7 @@
 #define _MOUSE  5
 #define _PLOVER 6
 
+// FN key names do not.
 #define RAISE 1
 #define LOWER 2
 #define ENTFN 3
