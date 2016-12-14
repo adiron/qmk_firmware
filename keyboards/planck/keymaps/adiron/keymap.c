@@ -4,22 +4,22 @@
 #define _NUMPAD 1
 #define _RAISE  2
 #define _LOWER  3
-#define _SPCFN  4
+#define _ENTFN  4
 #define _MOUSE  5
 #define _PLOVER 6
 
 #define RAISE 1
 #define LOWER 2
-#define SPACE 3
+#define ENTFN 3
 #define SPCLK 5
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = { /* Qwerty */
  //                                      HOMING F                      HOMING J
- { KC_GRV,   KC_Q,     KC_W,    KC_E,        KC_R,        KC_T,        KC_Y,   KC_U,        KC_I,    KC_O,    KC_P, KC_BSPC},
- { KC_TAB,   KC_A,     KC_S,    KC_D,        KC_F,        KC_G,        KC_H,   KC_J,        KC_K,    KC_L, KC_SCLN, KC_QUOT},
- {KC_LSFT,   KC_Z,     KC_X,    KC_C,        KC_V,        KC_B,        KC_N,   KC_M,     KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT},
- {FUNC(7), KC_LCTL, KC_LALT, KC_LGUI, FUNC(RAISE), FUNC(SPACE), FUNC(SPACE), KC_ENT, FUNC(LOWER), KC_RGUI, KC_RALT, KC_RCTL}
+ { KC_GRV,   KC_Q,     KC_W,    KC_E,        KC_R,   KC_T,   KC_Y,        KC_U,        KC_I,    KC_O,    KC_P, KC_BSPC},
+ { KC_TAB,   KC_A,     KC_S,    KC_D,        KC_F,   KC_G,   KC_H,        KC_J,        KC_K,    KC_L, KC_SCLN, KC_QUOT},
+ {KC_LSFT,   KC_Z,     KC_X,    KC_C,        KC_V,   KC_B,   KC_N,        KC_M,     KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT},
+ {FUNC(7), KC_LCTL, KC_LALT, KC_LGUI, FUNC(RAISE), KC_SPC, KC_SPC, FUNC(ENTFN), FUNC(LOWER), KC_RGUI, KC_RALT, KC_RCTL}
  // Space is repeated to accommadate for both spacebar wiring positions
 },
 [_NUMPAD] = { /* Numpad layer */
@@ -42,11 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  {KC_TRNS, KC_VOLD,   BL_DEC,      KC_TRNS,      KC_TRNS,      KC_TRNS, KC_TRNS,  MU_TOG,  AU_TOG, KC_TRNS, KC_TRNS, KC_TRNS},
  {  RESET, KC_TRNS,  KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
-[_SPCFN] = { /* Spacefn */
- {KC_CAPS, KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS,     KC_BTN1, KC_BTN2,  KC_TRNS,  KC_TRNS, KC_TRNS},
- {KC_ESC , KC_TRNS, KC_WH_L, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_WH_R, KC_LEFT,     KC_DOWN,   KC_UP, KC_RIGHT, KC_MINUS, KC_EQUAL},
- {KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS, KC_TRNS, KC_PGDN,     KC_PGUP, KC_HOME,   KC_END,  KC_TRNS, KC_TRNS},
- {FUNC(4), KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, FUNC(SPCLK), KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS}
+[_ENTFN] = { /* Enter-FN */
+ {KC_CAPS, KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,     KC_TRNS,     KC_TRNS, KC_BTN1, KC_BTN2,  KC_TRNS,  KC_TRNS, KC_TRNS},
+ {KC_ESC , KC_TRNS, KC_WH_L, KC_MS_WH_UP, KC_MS_WH_DOWN,     KC_WH_R,     KC_LEFT, KC_DOWN,   KC_UP, KC_RIGHT, KC_MINUS, KC_EQUAL},
+ {KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS,     KC_TRNS,     KC_PGDN, KC_PGUP, KC_HOME,   KC_END,  KC_TRNS, KC_TRNS},
+ {FUNC(4), KC_TRNS, KC_TRNS,     KC_TRNS,       KC_TRNS, FUNC(SPCLK), FUNC(SPCLK), KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS}
 },
 [_MOUSE] = { /* Mousekeys */
  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS},
@@ -66,9 +66,9 @@ const uint16_t PROGMEM fn_actions[] = {
  [1] = ACTION_LAYER_MOMENTARY(_RAISE), // to RAISE
  [2] = ACTION_LAYER_MOMENTARY(_LOWER), // to LOWER
 
- [3] = ACTION_LAYER_TAP_KEY(_SPCFN, KC_SPC), // SpaceFN
+ [3] = ACTION_LAYER_TAP_KEY(_ENTFN, KC_ENT), // Enter-FN
  [4] = ACTION_DEFAULT_LAYER_SET(_PLOVER), // Plover layer
- [5] = ACTION_LAYER_TOGGLE(_SPCFN), // SpaceFN toggle
+ [5] = ACTION_LAYER_TOGGLE(_ENTFN), // Enter-FN toggle
  [6] = ACTION_LAYER_TOGGLE(_NUMPAD), // Numpad toggle
  [7] = ACTION_LAYER_TAP_TOGGLE(_MOUSE), // Mouse keys tap-toggle
  [8] = ACTION_DEFAULT_LAYER_SET(_QWERTY),
