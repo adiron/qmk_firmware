@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 [_LOWER] = { /* LOWER */
  //                                            HOMING F                         HOMING J
- {  KC_F1,   KC_F2,   KC_F3,        KC_F4,        KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12},
- {KC_TRNS, KC_VOLU,   BL_INC, KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
+ {  KC_F1,   KC_F2,   KC_F3,        KC_F4,        KC_F5,        KC_F6,   KC_F7,    KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12},
+ {KC_TRNS, KC_VOLU,   BL_INC, KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2,    M(0),    M(1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
  {KC_TRNS, KC_VOLD,   BL_DEC,      KC_TRNS,      KC_TRNS,      KC_TRNS, KC_TRNS,  MU_TOG,  AU_TOG, KC_TRNS, KC_TRNS, KC_TRNS},
  {  RESET, KC_TRNS,  KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
@@ -72,4 +72,24 @@ const uint16_t PROGMEM fn_actions[] = {
  [6] = ACTION_LAYER_TOGGLE(_NUMPAD), // Numpad toggle
  [7] = ACTION_LAYER_TAP_TOGGLE(_MOUSE), // Mouse keys tap-toggle
  [8] = ACTION_DEFAULT_LAYER_SET(_QWERTY),
+ [9] = ACTION_LAYER_TOGGLE(_LOWER),
+ [10] = ACTION_LAYER_TOGGLE(_RAISE),
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  switch(id) {
+    case 0:
+      if (record->event.pressed) {
+        return MACRO( I(1), T(A), T(D), T(I), D(RSFT), T(2), U(RSFT),
+            T(A), T(D), T(I),  T(R), T(O), T(N), END  );
+      }
+      break;
+    case 1:
+      if (record->event.pressed) {
+        return MACRO( I(1), T(J), T(J), T(J), END  );
+      }
+      break;
+  }
+  return MACRO_NONE;
 };
