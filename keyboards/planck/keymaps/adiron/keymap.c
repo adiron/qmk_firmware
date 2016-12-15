@@ -1,5 +1,9 @@
 #include "keymap.h"
 
+#ifdef AUDIO_ENABLE
+  #include "audio.h"
+#endif
+
 
 // Layer names start with an underscore.
 #define _QWERTY 0
@@ -96,3 +100,42 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   }
   return MACRO_NONE;
 };
+
+
+void matrix_init_user(void) {
+    #ifdef AUDIO_ENABLE
+        startup_user();
+    #endif
+}
+
+#ifdef AUDIO_ENABLE
+
+float tone_startup[][2]    = SONG(STARTUP_SOUND);
+float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
+float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
+
+
+void startup_user()
+{
+    _delay_ms(20); // gets rid of tick
+    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+}
+
+void shutdown_user()
+{
+    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    _delay_ms(150);
+    stop_all_notes();
+}
+
+void music_on_user(void)
+{
+    music_scale_user();
+}
+
+void music_scale_user(void)
+{
+    PLAY_NOTE_ARRAY(music_scale, false, 0);
+}
+
+#endif
