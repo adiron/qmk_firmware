@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ENTFN] = {
   {KC_ESC , M(2)   ,     M(3)     ,       _______,      _______,        _______, _______, KC_BTN1, KC_BTN2,    M(4),     M(5), _______},
-  {_______, _______, KC_MS_WH_LEFT, KC_MS_WH_UP  ,KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______},
+  {_______, _______, KC_MS_WH_LEFT, KC_MS_WH_UP  ,KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______,    M(6)},
   {_______, M(0)   ,  M(1)        ,       _______,      _______,        _______, _______, _______, _______, _______,  _______, _______},
   {_______, _______,       _______,       _______,      _______,        _______, _______, _______, _______, _______,  _______, _______}
 },
@@ -177,6 +177,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 5:
             /* Command + = */
             return MACRODOWN( DOWN(KC_LGUI), TYPE(KC_EQL), UP(KC_LGUI), END );
+            break;
+        case 6:
+            /* Command + Enter */
+            return MACRODOWN( DOWN(KC_LGUI), TYPE(KC_ENT), UP(KC_LGUI), END );
             break;
         default:
             break;
