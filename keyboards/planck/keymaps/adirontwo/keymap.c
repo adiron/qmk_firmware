@@ -22,6 +22,7 @@ extern keymap_config_t keymap_config;
 #define _MEDIA 7
 #define _MOUSE 8
 #define _ADJUST 16
+#define _NUMPAD 9
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -142,6 +143,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
 
+[_NUMPAD] = { /* Numpad */
+ {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PMNS, KC_TRNS},
+ {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PPLS, KC_TRNS},
+ {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_1, KC_KP_2, KC_KP_3, KC_TRNS, KC_TRNS},
+ {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_0, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
+},
+
 [_MEDIA] = {
   {_______, KC_SLCK, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, KC_VOLU, _______, _______, _______, _______, _______, KC_MEDIA_REWIND, KC_MPLY, KC_MEDIA_FAST_FORWARD, _______, _______},
@@ -208,7 +216,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 
 const uint16_t PROGMEM fn_actions[] = {
  [1] = ACTION_LAYER_TAP_KEY(_ENTFN, KC_ENT), // Enter-FN
- [2] = ACTION_LAYER_MOMENTARY(_MEDIA),
+ [2] = ACTION_LAYER_MOMENTARY(_NUMPAD),
  [3] = ACTION_LAYER_TAP_KEY(_MOUSE, KC_SCLN), // Enter-FN
  [4] = ACTION_LAYER_TAP_KEY(_MEDIA, KC_QUOT), // Enter-FN
 };
