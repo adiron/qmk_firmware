@@ -198,12 +198,31 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 #ifdef AUDIO_ENABLE
 
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
+#define MARIO                                          \
+    Q__NOTE(_E4), Q__NOTE(_E4), Q__NOTE(_REST), Q__NOTE(_E4), \
+    Q__NOTE(_REST), Q__NOTE(_C4), Q__NOTE(_E4), Q__NOTE(_REST), \
+    Q__NOTE(_G4),
+#define RAISE_SOUND                                          \
+    Q__NOTE(_C4), Q__NOTE(_E4), Q__NOTE(_C5),
+#define RAISE_GB_SOUND                                          \
+    Q__NOTE(_C5), Q__NOTE(_E4), Q__NOTE(_C4),
+
+#define LOWER_SOUND                                          \
+    Q__NOTE(_A4), Q__NOTE(_C4), Q__NOTE(_A5),
+#define LOWER_GB_SOUND                                          \
+    Q__NOTE(_A5), Q__NOTE(_C4), Q__NOTE(_A4),
+
+float tone_startup[][2]    = SONG(MARIO);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 float tone_caps_on[][2]    = SONG(SCROLL_LOCK_ON_SOUND);
-float tone_caps_off[][2]    = SONG(CAPS_LOCK_OFF_SOUND);
+float tone_caps_off[][2]   = SONG(CAPS_LOCK_OFF_SOUND);
+
+// float tone_raise_on[][2]    = SONG(RAISE_SOUND);
+// float tone_raise_off[][2]   = SONG(RAISE_GB_SOUND);
+// float tone_lower_on[][2]    = SONG(LOWER_SOUND);
+// float tone_lower_off[][2]   = SONG(LOWER_GB_SOUND);
 
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
@@ -314,8 +333,8 @@ void led_set_user(uint8_t usb_led) {
 
 void startup_user()
 {
-    _delay_ms(20); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    _delay_ms(30); // gets rid of tick
+    PLAY_NOTE_ARRAY(tone_startup, false, STACCATO);
 }
 
 void shutdown_user()
