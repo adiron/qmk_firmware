@@ -258,7 +258,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     Q__NOTE(_A5), Q__NOTE(_C4), Q__NOTE(_A4),
 
 #define MAC_SOUND                                          \
-    W__NOTE(_C4),
+    HD_NOTE(_C4),
 #define WIN_SOUND                                          \
     Q__NOTE(_A3), Q__NOTE(_A2),
 float tone_startup[][2]    = SONG(MARIO);
