@@ -131,9 +131,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______,  PLOVER,  _______},
+  {_______, _______, _______, AU_ON,   AU_OFF,  _______, _______, _______, _______, _______,  PLOVER,  _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, AG_NORM, AG_SWAP}
 },
 
 [_MOUSE] = { /* Mousekeys */
@@ -159,37 +159,74 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    keyevent_t event = record->event;
+
+    if (!eeconfig_is_enabled()) {
+      eeconfig_init();
+    }
+    bool use_cmd = true;    // Use, for example, Cmd-Tab, Cmd-C, Cmd-V, etc.
+    // Compare to MAGIC_SWAP_ALT_GUI and MAGIC_UNSWAP_ALT_GUI configs, set in:
+    // quantum/quantum.c
+    if(keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
+      use_cmd = false;      // ... or, Alt-Tab, Ctrl-C, Ctrl-V, etc.
+    }
     switch (id) {
         case 0:
-            /* Command + [ */
-            return MACRODOWN( DOWN(KC_LGUI), TYPE(KC_LBRC), UP(KC_LGUI), END );
+            /* Command + [ or previous page */
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), T(LBRC), U(LGUI), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LALT), T(LEFT), U(LALT), END ) : MACRO(END));
+            }
             break;
         case 1:
-            /* Command + ] */
-            return MACRODOWN( DOWN(KC_LGUI), TYPE(KC_RBRC), UP(KC_LGUI), END );
+            /* Command + ] or next page */
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), T(RBRC), U(LGUI), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LALT), T(RIGHT), U(LALT), END ) : MACRO(END));
+            }
             break;
         case 2:
-            /* Command + { */
-            return MACRODOWN( DOWN(KC_LGUI), DOWN(KC_RSFT), TYPE(KC_LBRC), UP(KC_RSFT), UP(KC_LGUI), END );
+            /* Command + { or prev tab. */
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), D(RSFT), T(LBRC), U(RSFT), U(LGUI), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LCTRL), D(RSFT), T(TAB), U(RSFT), U(LCTRL), END ) : MACRO(END));
+            }
             break;
         case 3:
-            /* Command + } */
-            return MACRODOWN( DOWN(KC_LGUI), DOWN(KC_RSFT), TYPE(KC_RBRC), UP(KC_RSFT), UP(KC_LGUI), END );
+            /* Command + } or next tab*/
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), D(RSFT), T(RBRC), U(RSFT), U(LGUI), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LCTRL), T(TAB), U(LCTRL), END ) : MACRO(END));
+            }
             break;
         case 4:
-            /* Command + - */
-            return MACRODOWN( DOWN(KC_LGUI), TYPE(KC_MINS), UP(KC_LGUI), END );
+            /* Command + - or Ctrl + -*/
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), T(MINS), U(LGUI), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LCTRL), T(MINS), U(LCTRL), END ) : MACRO(END));
+            }
             break;
         case 5:
-            /* Command + = */
-            return MACRODOWN( DOWN(KC_LGUI), TYPE(KC_EQL), UP(KC_LGUI), END );
+            /* Command + = or Ctrl + =*/
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), T(EQL), U(LGUI), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LCTRL), T(EQL), U(LCTRL), END ) : MACRO(END));
+            }
             break;
         case 6:
-            /* Command + Enter */
-            return MACRODOWN( DOWN(KC_LGUI), TYPE(KC_ENT), UP(KC_LGUI), END );
-            break;
+            /* Command + Enter or Ctrl + Enter*/
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), T(ENT), U(LGUI), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LCTRL), T(ENT), U(LCTRL), END ) : MACRO(END));
+            }
         default:
             break;
     }
@@ -212,6 +249,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 #define LOWER_GB_SOUND                                          \
     Q__NOTE(_A5), Q__NOTE(_C4), Q__NOTE(_A4),
 
+#define MAC_SOUND                                          \
+    W__NOTE(_C4),
+#define WIN_SOUND                                          \
+    Q__NOTE(_A3), Q__NOTE(_A2),
 float tone_startup[][2]    = SONG(MARIO);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
@@ -225,6 +266,8 @@ float tone_caps_off[][2]   = SONG(CAPS_LOCK_OFF_SOUND);
 // float tone_lower_off[][2]   = SONG(LOWER_GB_SOUND);
 
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
+float tone_mac[][2] = SONG(MAC_SOUND);
+float tone_win[][2] = SONG(WIN_SOUND);
 #endif
 
 
@@ -301,6 +344,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
+    case AG_NORM:
+      if (record->event.pressed) {
+        PLAY_NOTE_ARRAY(tone_mac,  false, LEGATO);
+      }
+        return true;
+        break;
+
+    case AG_SWAP:
+      if (record->event.pressed) {
+        PLAY_NOTE_ARRAY(tone_win,  false, LEGATO);
+      }
+        return true;
+        break;
   }
   return true;
 }
