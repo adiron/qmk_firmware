@@ -24,6 +24,14 @@ extern keymap_config_t keymap_config;
 #define _ADJUST 16
 #define _NUMPAD 9
 
+#define M_BACK 0
+#define M_FWRD 1
+#define M_PTAB 2
+#define M_NTAB 3
+#define M_ZOUT 4
+#define M_ZOIN 5
+#define M_ENTR 6
+
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   PLOVER,
@@ -113,10 +121,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_ENTFN] = {
-  {_______, M(2)   ,     M(3)     ,       _______,      _______,        _______, _______, KC_BTN1, KC_BTN2,    M(4),     M(5), _______},
-  { KC_ESC, _______, KC_MS_WH_LEFT, KC_MS_WH_UP  ,KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______,    M(6)},
-  {_______, M(0)   ,  M(1)        ,       _______,      _______,        _______, _______, _______, _______, _______,  _______, _______},
-  {_______, _______,       _______,       _______,      _______,        _______, _______, _______, _______, _______,  _______, _______}
+  {_______, M(M_PTAB), M(M_NTAB), _______, _______,  _______, _______, KC_BTN1, KC_BTN2, M(M_ZOUT), M(M_ZOIN), _______},
+  { KC_ESC, _______, KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, M(M_ENTR)},
+  {_______, M(M_BACK),  M(M_FWRD), _______, _______, _______, _______, _______, _______, _______,  _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______}
 },
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
@@ -172,7 +180,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
       use_cmd = false;      // ... or, Alt-Tab, Ctrl-C, Ctrl-V, etc.
     }
     switch (id) {
-        case 0:
+        case M_BACK:
             /* Command + [ or previous page */
             if (use_cmd) {
                 return (event.pressed ? MACRO( D(LGUI), T(LBRC), U(LGUI), END ) : MACRO(END));
@@ -180,7 +188,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LALT), T(LEFT), U(LALT), END ) : MACRO(END));
             }
             break;
-        case 1:
+        case M_FWRD:
             /* Command + ] or next page */
             if (use_cmd) {
                 return (event.pressed ? MACRO( D(LGUI), T(RBRC), U(LGUI), END ) : MACRO(END));
@@ -188,7 +196,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LALT), T(RIGHT), U(LALT), END ) : MACRO(END));
             }
             break;
-        case 2:
+        case M_PTAB:
             /* Command + { or prev tab. */
             if (use_cmd) {
                 return (event.pressed ? MACRO( D(LGUI), D(RSFT), T(LBRC), U(RSFT), U(LGUI), END ) : MACRO(END));
@@ -196,7 +204,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LCTRL), D(RSFT), T(TAB), U(RSFT), U(LCTRL), END ) : MACRO(END));
             }
             break;
-        case 3:
+        case M_NTAB:
             /* Command + } or next tab*/
             if (use_cmd) {
                 return (event.pressed ? MACRO( D(LGUI), D(RSFT), T(RBRC), U(RSFT), U(LGUI), END ) : MACRO(END));
@@ -204,7 +212,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LCTRL), T(TAB), U(LCTRL), END ) : MACRO(END));
             }
             break;
-        case 4:
+        case M_ZOUT:
             /* Command + - or Ctrl + -*/
             if (use_cmd) {
                 return (event.pressed ? MACRO( D(LGUI), T(MINS), U(LGUI), END ) : MACRO(END));
@@ -212,7 +220,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LCTRL), T(MINS), U(LCTRL), END ) : MACRO(END));
             }
             break;
-        case 5:
+        case M_ZOIN:
             /* Command + = or Ctrl + =*/
             if (use_cmd) {
                 return (event.pressed ? MACRO( D(LGUI), T(EQL), U(LGUI), END ) : MACRO(END));
@@ -220,7 +228,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LCTRL), T(EQL), U(LCTRL), END ) : MACRO(END));
             }
             break;
-        case 6:
+        case M_ENTR:
             /* Command + Enter or Ctrl + Enter*/
             if (use_cmd) {
                 return (event.pressed ? MACRO( D(LGUI), T(ENT), U(LGUI), END ) : MACRO(END));
