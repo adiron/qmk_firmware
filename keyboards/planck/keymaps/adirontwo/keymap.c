@@ -31,6 +31,7 @@ extern keymap_config_t keymap_config;
 #define M_ZOUT 4
 #define M_ZOIN 5
 #define M_ENTR 6
+#define M_SCRN 7
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -138,10 +139,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  _______, _______, _______, _______, _______,  PLOVER,  _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, AG_NORM, AG_SWAP}
+  {_______, RESET,   _______, _______, _______, _______  , _______  , _______, _______, _______, _______, KC_DEL},
+  {_______, _______, _______, AU_ON,   AU_OFF,  _______  , _______  , _______, _______, _______,  PLOVER, _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON    , MI_OFF   , _______, _______, _______, _______, _______},
+  {_______, BACKLIT, _______, _______, _______, M(M_SCRN), M(M_SCRN), _______, _______, _______, AG_NORM, AG_SWAP}
 },
 
 [_MOUSE] = { /* Mousekeys */
@@ -234,6 +235,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LGUI), T(ENT), U(LGUI), END ) : MACRO(END));
             } else {
                 return (event.pressed ? MACRO( D(LCTRL), T(ENT), U(LCTRL), END ) : MACRO(END));
+            }
+        case M_SCRN:
+            /* Command + Enter or Ctrl + Enter*/
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LGUI), D(LCTRL), D(LSFT), T(4), U(LSFT), U(LGUI), U(LCTRL), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( T(PSCR) ) : MACRO(END));
             }
         default:
             break;
