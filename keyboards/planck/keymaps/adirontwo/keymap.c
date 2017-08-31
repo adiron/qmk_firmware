@@ -251,10 +251,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 #ifdef AUDIO_ENABLE
 
-#define MARIO                                          \
-    Q__NOTE(_E4), Q__NOTE(_E4), Q__NOTE(_REST), Q__NOTE(_E4), \
-    Q__NOTE(_REST), Q__NOTE(_C4), Q__NOTE(_E4), Q__NOTE(_REST), \
-    Q__NOTE(_G4),
 #define RAISE_SOUND                                          \
     Q__NOTE(_C4), Q__NOTE(_E4), Q__NOTE(_C5),
 #define RAISE_GB_SOUND                                          \
@@ -269,7 +265,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     HD_NOTE(_C4),
 #define WIN_SOUND                                          \
     Q__NOTE(_A3), Q__NOTE(_A2),
-float tone_startup[][2]    = SONG(MARIO);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
@@ -336,7 +331,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           stop_all_notes();
-          PLAY_NOTE_ARRAY(tone_plover, false, 0);
+          PLAY_SONG(tone_plover);
         #endif
         layer_off(_RAISE);
         layer_off(_LOWER);
@@ -354,7 +349,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case EXT_PLV:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+          PLAY_SONG(tone_plover_gb);
         #endif
         layer_off(_PLOVER);
       }
@@ -363,14 +358,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case AG_NORM:
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_mac,  false, LEGATO);
+        PLAY_SONG(tone_mac);
       }
         return true;
         break;
 
     case AG_SWAP:
       if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_win,  false, LEGATO);
+        PLAY_SONG(tone_win);
       }
         return true;
         break;
@@ -394,25 +389,19 @@ void led_set_user(uint8_t usb_led) {
     if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
     {
             // If CAPS LK LED is turning on...
-            PLAY_NOTE_ARRAY(tone_caps_on,  false, LEGATO);
+            PLAY_SONG(tone_caps_on);
     }
     else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
     {
             // If CAPS LK LED is turning off...
-            PLAY_NOTE_ARRAY(tone_caps_off, false, LEGATO);
+            PLAY_SONG(tone_caps_off);
     }
     old_usb_led = usb_led;
 }
 
-void startup_user()
-{
-    _delay_ms(30); // gets rid of tick
-    PLAY_NOTE_ARRAY(tone_startup, false, STACCATO);
-}
-
 void shutdown_user()
 {
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
@@ -424,7 +413,7 @@ void music_on_user(void)
 
 void music_scale_user(void)
 {
-    PLAY_NOTE_ARRAY(music_scale, false, 0);
+    PLAY_SONG(music_scale);
 }
 
 #endif
