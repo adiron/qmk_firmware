@@ -32,6 +32,8 @@ extern keymap_config_t keymap_config;
 #define M_ZOIN 5
 #define M_ENTR 6
 #define M_SCRN 7
+#define M_NSPC 8
+#define M_PSPC 9
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -122,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_ENTFN] = {
-  {_______, M(M_PTAB), M(M_NTAB), _______, _______,  _______, _______, KC_BTN1, KC_BTN2, M(M_ZOUT), M(M_ZOIN), _______},
+  {_______, M(M_PTAB), M(M_NTAB), M(M_PSPC), M(M_NSPC),  _______, _______, KC_BTN1, KC_BTN2, M(M_ZOUT), M(M_ZOIN), _______},
   { KC_ESC, _______, KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, M(M_ENTR)},
   {_______, M(M_BACK),  M(M_FWRD), _______, _______, _______, _______, _______, _______, _______,  _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______}
@@ -242,6 +244,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
                 return (event.pressed ? MACRO( D(LGUI), D(LCTRL), D(LSFT), T(4), U(LSFT), U(LGUI), U(LCTRL), END ) : MACRO(END));
             } else {
                 return (event.pressed ? MACRO( T(PSCR) ) : MACRO(END));
+            }
+        case M_NSPC:
+            /* Next space / desktop */
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LCTRL), T(RIGHT), U(LCTRL), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LGUI), T(RIGHT), U(LGUI), END ) : MACRO(END));
+            }
+        case M_PSPC:
+            /* Previous space / desktop */
+            if (use_cmd) {
+                return (event.pressed ? MACRO( D(LCTRL), T(LEFT), U(LCTRL), END ) : MACRO(END));
+            } else {
+                return (event.pressed ? MACRO( D(LGUI), T(LEFT), U(LGUI), END ) : MACRO(END));
             }
         default:
             break;
