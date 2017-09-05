@@ -20,14 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../../config.h"
 
-#ifdef AUDIO_ENABLE
-#define MARIO                                                   \
-  Q__NOTE(_E4), Q__NOTE(_E4), Q__NOTE(_REST), Q__NOTE(_E4),     \
-    Q__NOTE(_REST), Q__NOTE(_C4), Q__NOTE(_E4), Q__NOTE(_REST), \
-    Q__NOTE(_G4),
-#define STARTUP_SONG SONG(MARIO)
-#endif
-
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 190
