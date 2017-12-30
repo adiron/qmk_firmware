@@ -7,5 +7,6 @@
 #define MOUSEKEYS_DELAY 150
 #define MOUSEKEYS_TIME_TO_MAX 50
 #define MOUSEKEYS_INTERVAL 30
+// #define TAPPING_TERM 200
 
 #endif
