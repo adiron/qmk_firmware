@@ -19,7 +19,16 @@
 
 #include "../../config.h"
 
+#define MOUSEKEYS_DELAY 150
+#define MOUSEKEYS_TIME_TO_MAX 50
+#define MOUSEKEYS_INTERVAL 30
 // Disable backlight
+
+#define MIDI_ENABLE_STRICT 1
+#define MIDI_BASIC
+#define MIDI_ADVANCED
+#define MIDI_TONE_KEYCODE_OCTAVES 4
+
 #undef BACKLIGHT_ENABLE
 
 #endif

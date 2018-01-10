@@ -28,6 +28,7 @@
 #define _ENTFN 4
 #define _MEDIA 5
 #define _MOUSE 6
+#define _MIDI 7
 
 #define M_BACK 0
 #define M_FWRD 1
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_FN] = { /* FUNCTION */
   { RESET, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, KC_DEL  },
   { KC_SLCK, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_PAUS, KC_PSCR  },
-  { KC_CAPS, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, _______, _______, _______  },
+  { KC_CAPS, TG(_MIDI), _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, _______, _______, _______  },
   { RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   ___T___, ___T___, KC_PGUP, KC_WH_D  },
   { _______  , _______, AG_SWAP, AG_NORM, _______, KC_BTN1, KC_BTN1, _______, AG_NORM, AG_SWAP, _______, _______, KC_HOME, KC_PGDN, KC_END  },
  },
@@ -103,6 +104,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
+ },
+ [_MIDI] = { /* Mouse */
+  {TG(_MIDI), MI_G_2 , MI_Gs_2,  MI_A_2, MI_As_2, MI_B_2 , MI_C_3 , MI_Cs_3, MI_D_3 , MI_Ds_3, MI_E_3 , MI_F_3 , MI_Fs_3, MI_G_3 , MI_Gs_3  },
+  { MI_OCTU , MI_D_2 , MI_Ds_2, MI_E_2 , MI_F_2 , MI_Fs_2, MI_G_2 , MI_Gs_2,  MI_A_2, MI_As_2, MI_B_2 , MI_C_3 , MI_Cs_3, MI_D_3 , MI_Ds_3  },
+  { MI_OCTD , MI_A_1 , MI_As_1, MI_B_1 , MI_C_2 , MI_Cs_2, MI_D_2 , MI_Ds_2, MI_E_2 , MI_F_2 , MI_Fs_2, MI_G_2 , MI_Gs_2,  MI_A_2, MI_As_2  },
+  { MI_SUS  , MI_D_1 , MI_Ds_1, MI_E_1 , MI_F_1 , MI_Fs_1, MI_G_1 , MI_Gs_1, MI_A_1 , MI_As_1, MI_B_1 , MI_C_2 , MI_Cs_2, MI_D_2 , MI_Ds_2  },
+  { MI_PORT ,    MI_C,   MI_Cs, MI_D   , MI_Ds  , MI_E   , MI_F   , MI_Fs  , MI_G   , MI_Gs  , MI_A   , MI_As  , MI_B   , MI_C_1 , MI_Cs_1  },
  },
 };
 
