@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Adi's keymap for xd75
-=======
 # Adi's XD75re Keymap
 
 This is my own (@adiron) keymap. It was originally made for the Planck. Since then a modified layout has expanded to encompass the XD75re as well, which I mostly use.
@@ -22,4 +19,3 @@ Lower + Quote - a Hebrew maqaf (־) in macOS
 ## AG swap
 
 Macros refer to AG_SWAP to check whether to send the macOS or the Windows shortcut. Very useful to me since I alternate between the two.
->>>>>>> master
