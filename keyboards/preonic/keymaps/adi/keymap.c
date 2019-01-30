@@ -27,6 +27,10 @@
 #define M_NSPC 8
 #define M_PSPC 9
 
+#define F_ENTFN LT(_ENTFN, KC_ENT)
+#define F_MOUSE LT(_MOUSE, KC_SCLN)
+#define F_QUOTE LT(_MEDIA, KC_QUOT)
+
 
 enum preonic_layers {
   _QWERTY,
@@ -63,9 +67,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_preonic_grid( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    FUNC(2), FUNC(3), \
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    F_MOUSE, F_QUOTE, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-  BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   FUNC(1), KC_RGUI, KC_RALT, KC_RCTRL \
+  KC_LCTL, KC_GRV,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   F_ENTFN, KC_RGUI, KC_RALT, KC_RCTRL \
 ),
 
 
@@ -306,15 +310,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 void encoder_update(bool clockwise) {
   if (clockwise) {
-    register_code(KC_VOLU);
-    unregister_code(KC_VOLU);
+    register_code(KC_PGUP);
+    unregister_code(KC_PGUP);
   } else {
-    register_code(KC_VOLD);
-    unregister_code(KC_VOLD);
+    register_code(KC_PGDN);
+    unregister_code(KC_PGDN);
   }
-}
-
-void matrix_scan_user(void) {
 }
 
 bool music_mask_user(uint16_t keycode) {
@@ -326,10 +327,4 @@ bool music_mask_user(uint16_t keycode) {
       return true;
   }
 }
-
-const uint16_t PROGMEM fn_actions[] = {
- [1] = ACTION_LAYER_TAP_KEY(_ENTFN, KC_ENT), // Enter-FN
- [2] = ACTION_LAYER_TAP_KEY(_MOUSE, KC_SCLN), // Mouse keys
- [3] = ACTION_LAYER_TAP_KEY(_MEDIA, KC_QUOT), // Media shortcuts
-};
 
