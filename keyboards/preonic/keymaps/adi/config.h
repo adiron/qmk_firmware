@@ -40,6 +40,6 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 #undef TAPPING_TERM
-#define TAPPING_TERM 190
+#define TAPPING_TERM 210
 
 #endif
