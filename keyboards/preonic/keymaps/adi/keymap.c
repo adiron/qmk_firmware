@@ -16,6 +16,8 @@
 
 #include QMK_KEYBOARD_H
 
+#define MEDIA_KEY_DELAY 10
+
 #define M_BACK 0
 #define M_FWRD 1
 #define M_PTAB 2
@@ -310,13 +312,72 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     return MACRO_NONE;
 }
 
-void encoder_update(bool clockwise) {
-  if (clockwise) {
-    register_code(KC_PGUP);
-    unregister_code(KC_PGUP);
+void encoder_update_user(uint8_t index, bool ccw) {
+  bool clockwise = !ccw;
+
+  if (IS_LAYER_ON(_MEDIA)) {
+    if (clockwise) {
+      register_code(KC_VOLU);
+      wait_ms(MEDIA_KEY_DELAY);
+      unregister_code(KC_VOLU);
+    } else {
+      register_code(KC_VOLD);
+      wait_ms(MEDIA_KEY_DELAY);
+      unregister_code(KC_VOLD);
+    }
+  } else if (IS_LAYER_ON(_RAISE)) {
+    if (clockwise) {
+      tap_code(KC_DOWN);
+    } else {
+      tap_code(KC_UP);
+    }
+  } else if (IS_LAYER_ON(_LOWER)) {
+    if (clockwise) {
+      tap_code(KC_RIGHT);
+    } else {
+      tap_code(KC_LEFT);
+    }
+  } else if (IS_LAYER_ON(_MOUSE)) {
+    if (get_mods() & (MOD_BIT(KC_RGUI)|MOD_BIT(KC_LGUI))) {
+      if (clockwise) {
+        tap_code(KC_MS_D);
+        tap_code(KC_MS_D);
+      } else {
+        tap_code(KC_MS_U);
+        tap_code(KC_MS_U);
+      }
+    } else {
+      if (clockwise) {
+        tap_code(KC_MS_R);
+        tap_code(KC_MS_R);
+      } else {
+        tap_code(KC_MS_L);
+        tap_code(KC_MS_L);
+      }
+    }
+  } else if (IS_LAYER_ON(_ENTFN)) {
+    if (clockwise) {
+      register_code( KC_LGUI );
+      register_code( KC_RSFT );
+      register_code( KC_RBRC );
+      unregister_code( KC_RBRC );
+      unregister_code( KC_RSFT );
+      unregister_code( KC_LGUI );
+    } else {
+      register_code( KC_LGUI );
+      register_code( KC_RSFT );
+      register_code( KC_LBRC );
+      unregister_code( KC_LBRC );
+      unregister_code( KC_RSFT );
+      unregister_code( KC_LGUI );
+    }
   } else {
-    register_code(KC_PGDN);
-    unregister_code(KC_PGDN);
+    // No layer is on
+    if (clockwise) {
+      tap_code(KC_PGDN);
+    } else {
+      tap_code(KC_PGUP);
+    }
   }
 }
 
