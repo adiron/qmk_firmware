@@ -319,9 +319,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     return MACRO_NONE;
 }
 
-void encoder_update_user(uint8_t index, bool ccw) {
-  bool clockwise = !ccw;
-
+void encoder_update_user(uint8_t index, bool clockwise) {
   if (IS_LAYER_ON(_MEDIA)) {
     if (clockwise) {
       register_code(KC_VOLU);
