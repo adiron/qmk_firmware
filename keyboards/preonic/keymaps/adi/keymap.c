@@ -34,6 +34,11 @@
 #define F_MOUSE LT(_MOUSE, KC_SCLN)
 #define F_QUOTE LT(_MEDIA, KC_QUOT)
 
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+#include "secrets.h"
+#else
+static const char * const secret = "test1";
+#endif
 
 enum preonic_layers {
   _QWERTY,
@@ -49,7 +54,8 @@ enum preonic_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  BACKLIT
+  BACKLIT,
+  SECRET
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -128,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |      |      | Secret mcro |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid( \
@@ -136,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
   _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+  _______, _______, _______, _______, _______, SECRET,  SECRET,  _______, _______, _______, _______, _______  \
 ),
 
 [_ENTFN] = LAYOUT_preonic_grid( \
@@ -212,7 +218,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-      }
+        case SECRET:
+          if (!record->event.pressed) {
+              clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+              send_string(secret);
+          }
+          return false;
+          break;
+    }
     return true;
 };
 
@@ -319,7 +332,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     return MACRO_NONE;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool counter_clockwise) {
+  bool clockwise = !counter_clockwise;
+
   if (IS_LAYER_ON(_MEDIA)) {
     if (clockwise) {
       register_code(KC_VOLU);
@@ -384,6 +399,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_PGUP);
     }
   }
+  return true;
 }
 
 bool music_mask_user(uint16_t keycode) {
