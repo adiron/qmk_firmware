@@ -29,16 +29,11 @@
 #define M_NSPC 8
 #define M_PSPC 9
 #define M_APPN 10
+#define M_HYP5 11
 
 #define F_ENTFN LT(_ENTFN, KC_ENT)
 #define F_MOUSE LT(_MOUSE, KC_SCLN)
 #define F_QUOTE LT(_MEDIA, KC_QUOT)
-
-#if (__has_include("secrets.h") && !defined(NO_SECRETS))
-#include "secrets.h"
-#else
-static const char * const secret = "test1";
-#endif
 
 enum preonic_layers {
   _QWERTY,
@@ -55,7 +50,6 @@ enum preonic_keycodes {
   LOWER,
   RAISE,
   BACKLIT,
-  SECRET
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -134,15 +128,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      | Secret mcro |      |      |      |      |      |
+ * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______, \
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, SECRET,  SECRET,  _______, _______, _______, _______, _______  \
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,       KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
+  _______, RESET,   DEBUG,   _______, _______, _______, _______,   TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, M(M_HYP5), _______, _______, _______, _______, \
+  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,    _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______,  _______,  _______, _______, _______, _______, _______  \
 ),
 
 [_ENTFN] = LAYOUT_preonic_grid( \
@@ -215,13 +209,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             #ifdef __AVR__
             PORTE |= (1<<6);
             #endif
-          }
-          return false;
-          break;
-        case SECRET:
-          if (!record->event.pressed) {
-              clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-              send_string(secret);
           }
           return false;
           break;
@@ -325,6 +312,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             } else {
                 return (event.pressed ? MACRO( D(LALT), T(TAB), U(LALT), END ) : MACRO(END));
             }
+        case M_HYP5:
+            /* Five hyphens */
+            return (event.pressed ?
+                    MACRO( T(MINS), T(MINS), T(MINS), T(MINS), T(MINS) ) :
+                    MACRO(END));
 
         default:
             break;
