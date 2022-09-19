@@ -18,38 +18,35 @@
 
 #define MEDIA_KEY_DELAY 10
 
-#define M_BACK 0
-#define M_FWRD 1
-#define M_PTAB 2
-#define M_NTAB 3
-#define M_ZOUT 4
-#define M_ZOIN 5
-#define M_ENTR 6
-#define M_SCRN 7
-#define M_NSPC 8
-#define M_PSPC 9
-#define M_APPN 10
-#define M_HYP5 11
-
 #define F_ENTFN LT(_ENTFN, KC_ENT)
 #define F_MOUSE LT(_MOUSE, KC_SCLN)
 #define F_QUOTE LT(_MEDIA, KC_QUOT)
 
 enum preonic_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-  _ENTFN,
-  _MEDIA,
-  _MOUSE
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _ENTFN,
+    _MEDIA,
+    _MOUSE
 };
 
 enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  BACKLIT,
+    QWERTY = SAFE_RANGE,
+    LOWER,
+    RAISE,
+    BACKLIT,
+    M_BACK,
+    M_FWRD,
+    M_PTAB,
+    M_NTAB,
+    M_ZOUT,
+    M_ZOIN,
+    M_ENTR,
+    M_NSPC,
+    M_PSPC,
+    M_APPN,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -68,11 +65,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid( \
-  M(M_APPN),  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_TAB,     KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
-  KC_ESC,     KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    F_MOUSE, F_QUOTE, \
-  KC_LSFT,    KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-  KC_LCTL,    KC_GRV, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   F_ENTFN, KC_RGUI, KC_RALT, KC_RCTRL \
+  M_APPN,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+  KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
+  KC_ESC,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    F_MOUSE, F_QUOTE, \
+  KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
+  KC_LCTL, KC_GRV, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   F_ENTFN, KC_RGUI, KC_RALT, KC_RCTRL \
 ),
 
 
@@ -132,19 +129,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_grid( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,       KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  _______, RESET,   DEBUG,   _______, _______, _______, _______,   TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, M(M_HYP5), _______, _______, _______, _______, \
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,    _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______,  _______,  _______, _______, _______, _______, _______  \
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10,  KC_F11,  KC_F12, \
+  _______,   RESET,   DEBUG, _______, _______, _______, _______, TERM_ON, TERM_OFF, _______, _______,  KC_DEL, \
+  _______, _______,  MU_MOD,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP, _______,  _______, _______, _______, _______, \
+  _______,  MUV_DE,  MUV_IN,   MU_ON,  MU_OFF,   MI_ON,  MI_OFF, _______,  _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______ \
 ),
 
 [_ENTFN] = LAYOUT_preonic_grid( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, \
-  _______, M(M_PTAB), M(M_NTAB), M(M_PSPC), M(M_NSPC),  _______, _______, KC_BTN1, KC_BTN2, M(M_ZOUT), M(M_ZOIN), _______, \
-  KC_ESC, _______, KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, M(M_ENTR), \
-  _______, M(M_BACK),  M(M_FWRD), _______, _______, _______, _______, _______, _______, _______,  _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______ \
+  _______, _______,       _______,     _______,       _______,        _______, _______, _______, _______, _______, _______, _______, \
+  _______,  M_PTAB,        M_NTAB,     M_PSPC ,        M_NSPC,        _______, _______, KC_BTN1, KC_BTN2, M_ZOUT,   M_ZOIN, _______, \
+  KC_ESC,  _______, KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  _______, M_ENTR, \
+  _______,  M_BACK,        M_FWRD,     _______,       _______,        _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______,       _______,     _______,       _______,        _______, _______, _______, _______, _______, _______, _______ \
 ),
 
 [_MEDIA] = LAYOUT_preonic_grid( \
@@ -168,6 +165,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+    bool use_cmd = true; // Use, for example, Cmd-Tab, Cmd-C, Cmd-V, etc.
+    // Compare to MAGIC_SWAP_ALT_GUI and MAGIC_UNSWAP_ALT_GUI configs, set in:
+    // quantum/quantum.c
+    if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
+        use_cmd = false; // ... or, Alt-Tab, Ctrl-C, Ctrl-V, etc.
+    }
   switch (keycode) {
         case QWERTY:
           if (record->event.pressed) {
@@ -212,194 +218,195 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
-    }
-    return true;
-};
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    keyevent_t event = record->event;
-
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-    bool use_cmd = true;    // Use, for example, Cmd-Tab, Cmd-C, Cmd-V, etc.
-    // Compare to MAGIC_SWAP_ALT_GUI and MAGIC_UNSWAP_ALT_GUI configs, set in:
-    // quantum/quantum.c
-    if(keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
-      use_cmd = false;      // ... or, Alt-Tab, Ctrl-C, Ctrl-V, etc.
-    }
-    switch (id) {
         case M_BACK:
             /* Command + [ or previous page */
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), T(LBRC), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LALT), T(LEFT), U(LALT), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_LBRC)));
+                } else {
+                    SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
+                }
             }
             break;
         case M_FWRD:
             /* Command + ] or next page */
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), T(RBRC), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LALT), T(RIGHT), U(LALT), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_RBRC)));
+                } else {
+                    SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
+                }
             }
             break;
         case M_PTAB:
             /* Command + { or prev tab. */
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), D(RSFT), T(LBRC), U(RSFT), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LCTRL), D(RSFT), T(TAB), U(RSFT), U(LCTRL), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_RSFT(SS_TAP(X_LBRC))));
+                } else {
+                    SEND_STRING(SS_LCTRL(SS_RSFT(SS_TAP(X_TAB))));
+                }
             }
             break;
         case M_NTAB:
             /* Command + } or next tab*/
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), D(RSFT), T(RBRC), U(RSFT), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LCTRL), T(TAB), U(LCTRL), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_RSFT(SS_TAP(X_RBRC))));
+                } else {
+                    SEND_STRING(SS_LCTRL(SS_TAP(X_TAB)));
+                }
             }
             break;
         case M_ZOUT:
             /* Command + - or Ctrl + -*/
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), T(MINS), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LCTRL), T(MINS), U(LCTRL), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_MINS)));
+                } else {
+                    SEND_STRING(SS_LCTRL(SS_TAP(X_MINS)));
+                }
             }
             break;
         case M_ZOIN:
             /* Command + = or Ctrl + =*/
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), T(EQL), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LCTRL), T(EQL), U(LCTRL), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_EQL)));
+                } else {
+                    SEND_STRING(SS_LCTRL(SS_TAP(X_EQL)));
+                }
             }
             break;
         case M_ENTR:
             /* Command + Enter or Ctrl + Enter*/
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), T(ENT), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LCTRL), T(ENT), U(LCTRL), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_ENT)));
+                } else {
+                    SEND_STRING(SS_LCTRL(SS_TAP(X_ENT)));
+                }
             }
-        case M_SCRN:
-            /* Command + Enter or Ctrl + Enter*/
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), D(LCTRL), D(LSFT), T(4), U(LSFT), U(LGUI), U(LCTRL), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( T(PSCR) ) : MACRO(END));
-            }
+            break;
         case M_NSPC:
             /* Next space / desktop */
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LCTRL), T(RIGHT), U(LCTRL), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LGUI), T(RIGHT), U(LGUI), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LCTRL(SS_TAP(X_RIGHT)));
+                } else {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+                }
             }
+            break;
         case M_PSPC:
             /* Previous space / desktop */
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LCTRL), T(LEFT), U(LCTRL), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LGUI), T(LEFT), U(LGUI), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LCTRL(SS_TAP(X_LEFT)));
+                } else {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+                }
             }
+            break;
         case M_APPN:
             /* Next or previous app */
-            if (use_cmd) {
-                return (event.pressed ? MACRO( D(LGUI), T(GRV), U(LGUI), END ) : MACRO(END));
-            } else {
-                return (event.pressed ? MACRO( D(LALT), T(TAB), U(LALT), END ) : MACRO(END));
+            if (record->event.pressed) {
+                if (use_cmd) {
+                    SEND_STRING(SS_LGUI(SS_TAP(X_GRV)));
+                } else {
+                    SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
+                }
+                break;
             }
-        case M_HYP5:
-            /* Five hyphens */
-            return (event.pressed ?
-                    MACRO( T(MINS), T(MINS), T(MINS), T(MINS), T(MINS) ) :
-                    MACRO(END));
-
-        default:
-            break;
-    }
-    return MACRO_NONE;
-}
+  }
+    return true;
+};
 
 bool encoder_update_user(uint8_t index, bool counter_clockwise) {
-  bool clockwise = !counter_clockwise;
+    bool clockwise = !counter_clockwise;
+    switch(get_highest_layer(layer_state|default_layer_state)) {
+        case _QWERTY:
+            // No layer is on
+            if (clockwise) {
+                tap_code(KC_PGDN);
+            } else {
+                tap_code(KC_PGUP);
+            }
+            break;
 
-  if (IS_LAYER_ON(_MEDIA)) {
-    if (clockwise) {
-      register_code(KC_VOLU);
-      wait_ms(MEDIA_KEY_DELAY);
-      unregister_code(KC_VOLU);
-    } else {
-      register_code(KC_VOLD);
-      wait_ms(MEDIA_KEY_DELAY);
-      unregister_code(KC_VOLD);
+        case _MEDIA:
+            if (clockwise) {
+                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
+            } else {
+                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
+            }
+            break;
+
+        case _LOWER:
+            if (clockwise) {
+                tap_code(KC_RIGHT);
+            } else {
+                tap_code(KC_LEFT);
+            }
+            break;
+
+        case _RAISE:
+            if (clockwise) {
+                tap_code(KC_DOWN);
+            } else {
+                tap_code(KC_UP);
+            }
+            break;
+
+        case _MOUSE:
+            if (get_mods() & (MOD_BIT(KC_RGUI) | MOD_BIT(KC_LGUI))) {
+                if (clockwise) {
+                    tap_code(KC_MS_D);
+                    tap_code(KC_MS_D);
+                } else {
+                    tap_code(KC_MS_U);
+                    tap_code(KC_MS_U);
+                }
+            } else {
+                if (clockwise) {
+                    tap_code(KC_MS_R);
+                    tap_code(KC_MS_R);
+                } else {
+                    tap_code(KC_MS_L);
+                    tap_code(KC_MS_L);
+                }
+            }
+            break;
+
+        case _ENTFN:
+            if (clockwise) {
+                register_code(KC_LGUI);
+                register_code(KC_RSFT);
+                register_code(KC_RBRC);
+                unregister_code(KC_RBRC);
+                unregister_code(KC_RSFT);
+                unregister_code(KC_LGUI);
+            } else {
+                register_code(KC_LGUI);
+                register_code(KC_RSFT);
+                register_code(KC_LBRC);
+                unregister_code(KC_LBRC);
+                unregister_code(KC_RSFT);
+                unregister_code(KC_LGUI);
+            }
+            break;
     }
-  } else if (IS_LAYER_ON(_RAISE)) {
-    if (clockwise) {
-      tap_code(KC_DOWN);
-    } else {
-      tap_code(KC_UP);
-    }
-  } else if (IS_LAYER_ON(_LOWER)) {
-    if (clockwise) {
-      tap_code(KC_RIGHT);
-    } else {
-      tap_code(KC_LEFT);
-    }
-  } else if (IS_LAYER_ON(_MOUSE)) {
-    if (get_mods() & (MOD_BIT(KC_RGUI)|MOD_BIT(KC_LGUI))) {
-      if (clockwise) {
-        tap_code(KC_MS_D);
-        tap_code(KC_MS_D);
-      } else {
-        tap_code(KC_MS_U);
-        tap_code(KC_MS_U);
-      }
-    } else {
-      if (clockwise) {
-        tap_code(KC_MS_R);
-        tap_code(KC_MS_R);
-      } else {
-        tap_code(KC_MS_L);
-        tap_code(KC_MS_L);
-      }
-    }
-  } else if (IS_LAYER_ON(_ENTFN)) {
-    if (clockwise) {
-      register_code( KC_LGUI );
-      register_code( KC_RSFT );
-      register_code( KC_RBRC );
-      unregister_code( KC_RBRC );
-      unregister_code( KC_RSFT );
-      unregister_code( KC_LGUI );
-    } else {
-      register_code( KC_LGUI );
-      register_code( KC_RSFT );
-      register_code( KC_LBRC );
-      unregister_code( KC_LBRC );
-      unregister_code( KC_RSFT );
-      unregister_code( KC_LGUI );
-    }
-  } else {
-    // No layer is on
-    if (clockwise) {
-      tap_code(KC_PGDN);
-    } else {
-      tap_code(KC_PGUP);
-    }
-  }
-  return true;
+
+    return false;
 }
 
 bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
-  }
+    switch (keycode) {
+        case RAISE:
+        case LOWER:
+            return false;
+        default:
+            return true;
+    }
 }
