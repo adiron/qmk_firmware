@@ -435,3 +435,31 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       break;
   }
 }
+
+// Caps lock LED sound
+
+#ifdef AUDIO_ENABLE
+
+float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
+float tone_caps_off[][2]   = SONG(CAPS_LOCK_OFF_SOUND);
+
+void led_set_user(uint8_t usb_led)
+{
+    static uint8_t old_usb_led = 0;
+
+    wait_ms(10); // gets rid of tick
+
+    if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+    {
+            // If CAPS LK LED is turning on...
+            PLAY_SONG(tone_caps_on);
+    }
+    else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+    {
+            // If CAPS LK LED is turning off...
+            PLAY_SONG(tone_caps_off);
+    }
+
+    old_usb_led = usb_led;
+}
+#endif /* AUDIO_ENABLE */
