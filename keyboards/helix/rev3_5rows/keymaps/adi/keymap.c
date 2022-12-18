@@ -14,39 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-
-enum macro_names {
-    M_BACK = 0,
-    M_FWRD,
-    M_PTAB,
-    M_NTAB,
-    M_ZOUT,
-    M_ZOIN,
-    M_ENTR,
-    M_NSPC,
-    M_PSPC,
-    M_APPN,
-    M_APPP,
-};
-
-// Defines names for use in layer keycodes and the keymap
-enum layer_names {
-  _QWERTY = 0,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-  _ENTFN,
-  _MEDIA,
-  _MOUSE
-};
-
-
-#define F_ENTFN LT(_ENTFN, KC_ENT)
-#define F_MOUSE LT(_MOUSE, KC_SCLN)
-#define F_QUOTE LT(_MEDIA, KC_QUOT)
-#define F_RAISE MO(_RAISE)
-#define F_LOWER MO(_LOWER)
-#define F_ADJUST MO(_ADJUST)
+#include "adi.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Qwerty
@@ -67,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,        KC_W,    KC_E,    KC_R,    KC_T,                  KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
       KC_LCTL, KC_A,        KC_S,    KC_D,    KC_F,    KC_G,                  KC_H,   KC_J,    KC_K,    KC_L,    F_MOUSE, F_QUOTE,
       KC_LSFT, KC_Z,        KC_X,    KC_C,    KC_V,    KC_B, KC_PGUP, M_APPN, KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-      KC_LCTL, F_ADJUST, KC_LALT, KC_LGUI, F_LOWER, KC_SPC,  KC_PGDN, M_APPP, KC_SPC, F_RAISE, F_ENTFN, KC_RGUI, KC_RALT, KC_RCTL
+      KC_LCTL, MO(_ADJUST), KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC,  KC_PGDN, M_APPP, KC_SPC, MO(_RAISE), F_ENTFN, KC_RGUI, KC_RALT, KC_RCTL
     ),
   /* Lower
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -191,114 +159,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
       )
-};
-
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-// }
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
-    bool use_cmd = true; // Use, for example, Cmd-Tab, Cmd-C, Cmd-V, etc.
-    // Compare to MAGIC_SWAP_ALT_GUI and MAGIC_UNSWAP_ALT_GUI configs, set in:
-    // quantum/quantum.c
-    if (keymap_config.swap_lalt_lgui == 1 && keymap_config.swap_ralt_rgui == 1) {
-        use_cmd = false; // ... or, Alt-Tab, Ctrl-C, Ctrl-V, etc.
-    }
-    if (record->event.pressed) {
-        switch (keycode) {
-            case M_BACK:
-                /* Command + [ or previous page */
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_LBRC)));
-                } else {
-                    SEND_STRING(SS_LALT(SS_TAP(X_LEFT)));
-                }
-                break;
-            case M_FWRD:
-                /* Command + ] or next page */
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_RBRC)));
-                } else {
-                    SEND_STRING(SS_LALT(SS_TAP(X_RIGHT)));
-                }
-                break;
-            case M_PTAB:
-                /* Command + { or prev tab. */
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_RSFT(SS_TAP(X_LBRC))));
-                } else {
-                    SEND_STRING(SS_LCTRL(SS_RSFT(SS_TAP(X_TAB))));
-                }
-                break;
-            case M_NTAB:
-                /* Command + } or next tab*/
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_RSFT(SS_TAP(X_RBRC))));
-                } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_TAB)));
-                }
-                break;
-            case M_ZOUT:
-                /* Command + - or Ctrl + -*/
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_MINS)));
-                } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_MINS)));
-                }
-                break;
-            case M_ZOIN:
-                /* Command + = or Ctrl + =*/
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_EQL)));
-                } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_EQL)));
-                }
-                break;
-            case M_ENTR:
-                /* Command + Enter or Ctrl + Enter*/
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_ENT)));
-                } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_ENT)));
-                }
-                break;
-            case M_NSPC:
-                /* Next space / desktop */
-                if (use_cmd) {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_RIGHT)));
-                } else {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
-                }
-                break;
-            case M_PSPC:
-                /* Previous space / desktop */
-                if (use_cmd) {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_LEFT)));
-                } else {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
-                }
-                break;
-            case M_APPN:
-                /* Next app */
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_TAP(X_GRV)));
-                } else {
-                    SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
-                }
-                break;
-            case M_APPP:
-                /* Previous app */
-                if (use_cmd) {
-                    SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_GRV))));
-                } else {
-                    SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_TAB))));
-                }
-                break;
-        }
-    }
-    return true;
 };
