@@ -32,7 +32,8 @@ enum adi_layers {
     _ADJUST,
     _ENTFN,
     _MEDIA,
-    _MOUSE
+    _MOUSE,
+    _NUMPAD,
 };
 
 enum adi_keycodes {
