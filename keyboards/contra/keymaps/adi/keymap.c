@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    F_MOUSE, F_QUOTE},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT},
-  {KC_LCTL, MO(_NUMPAD), KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   F_ENTFN, KC_RGUI, KC_RALT, KC_RCTRL}
+  {KC_LCTL, MO(_NUMPAD), KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   F_ENTFN, KC_RGUI, KC_RALT, KC_RCTL}
 },
 
 [_LOWER] = {
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_ADJUST] = {
-  {_______, RESET  , _______, _______, _______, _______  , _______  , _______, _______, _______, _______, KC_DEL },
+  {_______, QK_BOOT, _______, _______, _______, _______  , _______  , _______, _______, _______, _______, KC_DEL },
   {_______, _______, _______, _______, _______, _______  , _______  , _______, _______, _______,  _______, _______},
   {_______, _______, _______, _______, _______, _______  , _______  , _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, AG_NORM, AG_SWAP}
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 [_MEDIA] = {
-  {_______, KC_SLCK, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, KC_SCRL, KC_PAUS, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, KC_VOLU, _______, _______, _______, _______, _______, KC_MEDIA_REWIND, KC_MPLY, KC_MEDIA_FAST_FORWARD, _______, _______},
   {_______, KC_VOLD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}

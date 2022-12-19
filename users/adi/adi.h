@@ -113,7 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (use_cmd) {
                     SEND_STRING(SS_LGUI(SS_RSFT(SS_TAP(X_LBRC))));
                 } else {
-                    SEND_STRING(SS_LCTRL(SS_RSFT(SS_TAP(X_TAB))));
+                    SEND_STRING(SS_LCTL(SS_RSFT(SS_TAP(X_TAB))));
                 }
             }
             break;
@@ -123,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (use_cmd) {
                     SEND_STRING(SS_LGUI(SS_RSFT(SS_TAP(X_RBRC))));
                 } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_TAB)));
+                    SEND_STRING(SS_LCTL(SS_TAP(X_TAB)));
                 }
             }
             break;
@@ -133,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (use_cmd) {
                     SEND_STRING(SS_LGUI(SS_TAP(X_MINS)));
                 } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_MINS)));
+                    SEND_STRING(SS_LCTL(SS_TAP(X_MINS)));
                 }
             }
             break;
@@ -143,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (use_cmd) {
                     SEND_STRING(SS_LGUI(SS_TAP(X_EQL)));
                 } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_EQL)));
+                    SEND_STRING(SS_LCTL(SS_TAP(X_EQL)));
                 }
             }
             break;
@@ -153,7 +153,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (use_cmd) {
                     SEND_STRING(SS_LGUI(SS_TAP(X_ENT)));
                 } else {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_ENT)));
+                    SEND_STRING(SS_LCTL(SS_TAP(X_ENT)));
                 }
             }
             break;
@@ -161,7 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             /* Next space / desktop */
             if (record->event.pressed) {
                 if (use_cmd) {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_RIGHT)));
+                    SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)));
                 } else {
                     SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
                 }
@@ -171,7 +171,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             /* Previous space / desktop */
             if (record->event.pressed) {
                 if (use_cmd) {
-                    SEND_STRING(SS_LCTRL(SS_TAP(X_LEFT)));
+                    SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
                 } else {
                     SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
                 }
