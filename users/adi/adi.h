@@ -218,42 +218,10 @@ const uint16_t PROGMEM combo_scrot[] = {KC_DOT, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_J, KC_K, COMBO_END};
 
 combo_t key_combos[] = {
-  [COMBO_CAPS] = COMBO_ACTION(combo_caps),
-  [COMBO_SCROT] = COMBO_ACTION(combo_scrot),
-  [COMBO_ESC] = COMBO_ACTION(combo_esc),
+  [COMBO_CAPS] = COMBO(combo_caps, CW_TOGG),
+  [COMBO_SCROT] = COMBO(combo_scrot, LGUI(LSFT(LCTL(KC_4)))),
+  [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
 };
-
-__attribute__ ((weak))
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case COMBO_CAPS:
-      if (pressed) {
-        #ifdef CAPS_WORD_ENABLE
-        caps_word_toggle();
-        #else
-        tap_code16(KC_CAPS);
-        #endif
-      }
-      break;
-    case COMBO_SCROT:
-      if (pressed) {
-        // Send the keycode for Cmd+Shift+Ctrl+4
-        register_code(KC_LGUI);
-        register_code(KC_LSFT);
-        register_code(KC_LCTL);
-        tap_code(KC_4);
-        unregister_code(KC_LGUI);
-        unregister_code(KC_LSFT);
-        unregister_code(KC_LCTL);
-      }
-      break;
-    case COMBO_ESC:
-      if (pressed) {
-        tap_code(KC_ESC);
-      }
-      break;
-  }
-}
 
 #endif
 
