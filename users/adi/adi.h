@@ -285,19 +285,9 @@ bool encoder_update_user(uint8_t index, bool counter_clockwise) {
 
         case _ENTFN:
             if (clockwise) {
-                register_code(KC_LGUI);
-                register_code(KC_RSFT);
-                register_code(KC_RBRC);
-                unregister_code(KC_RBRC);
-                unregister_code(KC_RSFT);
-                unregister_code(KC_LGUI);
+                SEND_STRING(SS_LGUI(SS_RSFT("]")));
             } else {
-                register_code(KC_LGUI);
-                register_code(KC_RSFT);
-                register_code(KC_LBRC);
-                unregister_code(KC_LBRC);
-                unregister_code(KC_RSFT);
-                unregister_code(KC_LGUI);
+                SEND_STRING(SS_LGUI(SS_RSFT("[")));
             }
             break;
     }
