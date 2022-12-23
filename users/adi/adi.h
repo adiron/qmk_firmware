@@ -208,6 +208,9 @@ enum combos {
     COMBO_CAPS,
     COMBO_SCROT,
     COMBO_ESC,
+    COMBO_COPY,
+    COMBO_PASTE,
+    COMBO_CUT,
     COMBO_LENGTH,
 };
 
@@ -216,11 +219,17 @@ uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this
 const uint16_t PROGMEM combo_caps[] = {KC_RSFT, KC_LSFT, COMBO_END};
 const uint16_t PROGMEM combo_scrot[] = {KC_DOT, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM combo_paste[] = {KC_U, KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM combo_cut[] = {KC_U, KC_O, COMBO_END};
 
 combo_t key_combos[] = {
   [COMBO_CAPS] = COMBO(combo_caps, CW_TOGG),
   [COMBO_SCROT] = COMBO(combo_scrot, LGUI(LSFT(LCTL(KC_4)))),
   [COMBO_ESC] = COMBO(combo_esc, KC_ESC),
+  [COMBO_COPY] = COMBO(combo_copy, LGUI(KC_C)),
+  [COMBO_PASTE] = COMBO(combo_paste, LGUI(KC_V)),
+  [COMBO_CUT] = COMBO(combo_cut, LGUI(KC_X)),
 };
 
 #endif
