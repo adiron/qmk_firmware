@@ -17,11 +17,15 @@
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names {
-  _QWERTY = 0,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
+enum adi_layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _ENTFN,
+    _MEDIA,
+    _MOUSE,
+    _NUMPAD,
 };
 
 #ifdef OLED_ENABLE
@@ -43,11 +47,11 @@ void render_status(void) {
   oled_write_P(PSTR(" "), false);
 
   // Host Keyboard Layer Status
-  oled_write_P(PSTR("L: "), false);
+  oled_write_P(PSTR("Layer: "), false);
 
   switch (get_highest_layer(layer_state)) {
       case _QWERTY:
-          oled_write_P(PSTR("none\n"), false);
+          oled_write_P(PSTR("none :)\n"), false);
           break;
       case _RAISE:
           oled_write_P(PSTR("Raise\n"), false);
@@ -58,9 +62,21 @@ void render_status(void) {
       case _ADJUST:
           oled_write_P(PSTR("Adjust\n"), false);
           break;
+      case _ENTFN:
+          oled_write_P(PSTR("Enter\n"), false);
+          break;
+      case _MEDIA:
+          oled_write_P(PSTR("Media\n"), false);
+          break;
+      case _MOUSE:
+          oled_write_P(PSTR("Mouse\n"), false);
+          break;
+      case _NUMPAD:
+          oled_write_P(PSTR("Numpad\n"), false);
+          break;
       default:
           // Or use the write_ln shortcut over adding '\n' to the end of your string
-          oled_write_ln_P(PSTR("Undefined"), false);
+          oled_write_ln_P(PSTR("Idk..."), false);
   }
 
   oled_write_P(PSTR("\n"), false);
