@@ -238,6 +238,19 @@ combo_t key_combos[] = {
   [COMBO_BSPC] = COMBO(combo_bspc, KC_BSPC),
 };
 
+#ifdef COMBO_TERM_PER_COMBO
+#define COMBO_TERM_SHORT 35
+
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    switch (index) {
+        case COMBO_BSPC:
+            return COMBO_TERM_SHORT;
+        default:
+            return COMBO_TERM;
+    }
+}
+#endif
+
 #endif
 
 // Encoder definitions

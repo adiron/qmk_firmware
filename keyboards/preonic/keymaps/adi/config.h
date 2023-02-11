@@ -42,4 +42,6 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 210
 
+#define COMBO_TERM_PER_COMBO
+
 #endif
