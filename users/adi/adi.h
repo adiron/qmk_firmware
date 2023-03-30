@@ -17,6 +17,10 @@
 /* This file includes all the different base settings for my usual keyboard
  * layout. */
 
+/* This sets the type of tap keys to hold on other keys. This is explained in:
+ * https://docs.qmk.fm/#/tap_hold?id=tap-or-hold-decision-modes */
+#define HOLD_ON_OTHER_KEY_PRESS
+
 #define MEDIA_KEY_DELAY 10
 
 // Keycodes and layers and stuff
