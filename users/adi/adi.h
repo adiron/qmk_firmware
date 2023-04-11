@@ -226,10 +226,10 @@ const uint16_t PROGMEM combo_caps[] = {KC_RSFT, KC_LSFT, COMBO_END};
 const uint16_t PROGMEM combo_scrot[] = {KC_DOT, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_scrot_save[] = {KC_DOT, KC_COMM, KC_SLASH, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM combo_copy[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM combo_copy[] = {KC_U, KC_J, COMBO_END};
 const uint16_t PROGMEM combo_paste[] = {KC_U, KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM combo_cut[] = {KC_U, KC_O, COMBO_END};
-const uint16_t PROGMEM combo_bspc[] = {KC_L, KC_K, COMBO_END};
+const uint16_t PROGMEM combo_cut[] = {KC_U, KC_J, KC_O, COMBO_END};
+const uint16_t PROGMEM combo_bspc[] = {KC_M, KC_COMM, COMBO_END};
 
 combo_t key_combos[] = {
   [COMBO_CAPS] = COMBO(combo_caps, CW_TOGG),
