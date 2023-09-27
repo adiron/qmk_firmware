@@ -28,6 +28,7 @@
 #define F_ENTFN LT(_ENTFN, KC_ENT)
 #define F_MOUSE LT(_MOUSE, KC_SCLN)
 #define F_QUOTE LT(_MEDIA, KC_QUOT)
+#define F_ESCFN LT(_ESCFN, KC_ESC)
 
 enum adi_layers {
     _QWERTY,
@@ -38,6 +39,7 @@ enum adi_layers {
     _MEDIA,
     _MOUSE,
     _NUMPAD,
+    _ESCFN,
 };
 
 enum adi_keycodes {
@@ -55,7 +57,32 @@ enum adi_keycodes {
     M_PSPC,
     M_APPN,
     M_APPP,
+    M_UUML,
+    M_AUML,
+    M_OUML,
+    M_SZET,
 };
+
+void adi_umlaut_macro(uint16_t keycode, keyrecord_t *record) {
+    /* Ü or ü (depending on shift) on macOS
+    This is done by reading the state of either right or left shift. If shift is pressed, unregister shift first, send alt+u, then register shift again. If shift is not pressed, just send alt+u. */
+    if (record->event.pressed) {
+        if (get_mods() & MOD_BIT(KC_RSFT)) {
+            unregister_code(KC_RSFT);
+            SEND_STRING(SS_LALT(SS_TAP(X_U)));
+            register_code(KC_RSFT);
+        } else if (get_mods() & MOD_BIT(KC_LSFT)) {
+            unregister_code(KC_LSFT);
+            SEND_STRING(SS_LALT(SS_TAP(X_U)));
+            register_code(KC_LSFT);
+        } else {
+            SEND_STRING(SS_LALT(SS_TAP(X_U)));
+        }
+        register_code(keycode);
+    } else {
+        unregister_code(keycode);
+    }
+}
 
 // Macro definitions
 
@@ -201,6 +228,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 break;
             }
+
+        case M_OUML:
+            adi_umlaut_macro(KC_O, record);
+            break;
+
+        case M_AUML:
+            adi_umlaut_macro(KC_A, record);
+            break;
+
+        case M_UUML:
+            adi_umlaut_macro(KC_U, record);
+            break;
+
+        case M_SZET:
+            if (record->event.pressed) {
+                register_code(KC_LALT);
+                register_code(KC_S);
+            } else {
+                unregister_code(KC_S);
+                unregister_code(KC_LALT);
+            }
+            break;
     }
     return true;
 };
