@@ -267,6 +267,7 @@ enum combos {
     COMBO_CUT,
     COMBO_BSPC,
     COMBO_ALT_BSPC,
+    COMBO_UNDO,
     COMBO_LENGTH,
 };
 
@@ -281,6 +282,7 @@ const uint16_t PROGMEM combo_paste[] = {KC_U, KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_cut[] = {KC_U, KC_J, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_bspc[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_alt_bspc[] = {KC_M, KC_COMM, KC_DOT, COMBO_END};
+const uint16_t PROGMEM combo_undo[] = {KC_K, KC_I, COMBO_END};
 
 combo_t key_combos[] = {
   [COMBO_CAPS] = COMBO(combo_caps, CW_TOGG),
@@ -292,10 +294,11 @@ combo_t key_combos[] = {
   [COMBO_CUT] = COMBO(combo_cut, LGUI(KC_X)),
   [COMBO_BSPC] = COMBO(combo_bspc, KC_BSPC),
   [COMBO_ALT_BSPC] = COMBO(combo_alt_bspc, LALT(KC_BSPC)),
+  [COMBO_UNDO] = COMBO(combo_undo, LGUI(KC_Z)),
 };
 
 #ifdef COMBO_TERM_PER_COMBO
-#define COMBO_TERM_SHORT 35
+#define COMBO_TERM_SHORT 30
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
