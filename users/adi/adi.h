@@ -61,6 +61,7 @@ enum adi_keycodes {
     M_AUML,
     M_OUML,
     M_IUML,
+    M_EUML,
     M_SZET,
 };
 
@@ -244,6 +245,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case M_IUML:
             adi_umlaut_macro(KC_I, record);
+            break;
+
+        case M_EUML:
+            adi_umlaut_macro(KC_E, record);
             break;
 
         case M_SZET:
