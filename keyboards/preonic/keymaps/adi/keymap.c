@@ -106,8 +106,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ENTFN] = LAYOUT_preonic_grid( \
   _______, _______,       _______,     _______,       _______,        _______, _______, _______, _______, _______, _______, _______, \
-  _______,  M_PTAB,        M_NTAB,     M_PSPC ,        M_NSPC,        _______, _______, KC_BTN1, KC_BTN2, M_ZOUT,   M_ZOIN, _______, \
-  KC_ESC,  _______, KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  _______, M_ENTR, \
+  _______,  M_PTAB,        M_NTAB,     M_PSPC ,        M_NSPC,        _______, _______, MS_BTN1, MS_BTN2, M_ZOUT,   M_ZOIN, _______, \
+  KC_ESC,  _______, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  _______, M_ENTR, \
   _______,  M_BACK,        M_FWRD,     _______,       _______,        _______, _______, _______, _______, _______, _______, _______, \
   _______, _______,       _______,     _______,       _______,        _______, _______, _______, _______, _______, _______, _______ \
 ),
@@ -122,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MOUSE] = LAYOUT_preonic_grid( \
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
- KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, \
- KC_TRNS, KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_TRNS, KC_TRNS, \
- KC_TRNS, KC_TRNS, KC_ACL0, KC_ACL1, KC_ACL2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MS_BTN1, MS_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, \
+ KC_TRNS, KC_TRNS, MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_TRNS, KC_TRNS, \
+ KC_TRNS, KC_TRNS, MS_ACL0, MS_ACL1, MS_ACL2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS \
 ),
 

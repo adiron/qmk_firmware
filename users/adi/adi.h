@@ -363,19 +363,19 @@ bool encoder_update_user(uint8_t index, bool counter_clockwise) {
         case _MOUSE:
             if (get_mods() & (MOD_BIT(KC_RGUI) | MOD_BIT(KC_LGUI))) {
                 if (clockwise) {
-                    tap_code(KC_MS_D);
-                    tap_code(KC_MS_D);
+                    tap_code(MS_DOWN);
+                    tap_code(MS_DOWN);
                 } else {
-                    tap_code(KC_MS_U);
-                    tap_code(KC_MS_U);
+                    tap_code(MS_UP);
+                    tap_code(MS_UP);
                 }
             } else {
                 if (clockwise) {
-                    tap_code(KC_MS_R);
-                    tap_code(KC_MS_R);
+                    tap_code(MS_RGHT);
+                    tap_code(MS_RGHT);
                 } else {
-                    tap_code(KC_MS_L);
-                    tap_code(KC_MS_L);
+                    tap_code(MS_LEFT);
+                    tap_code(MS_LEFT);
                 }
             }
             break;
