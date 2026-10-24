@@ -218,8 +218,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     SEND_STRING(SS_LALT(SS_TAP(X_TAB)));
                 }
-                break;
             }
+            break;
         case M_APPP:
             /* Next or previous app (reverse) */
             if (record->event.pressed) {
@@ -228,8 +228,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     SEND_STRING(SS_LALT(SS_LSFT(SS_TAP(X_TAB))));
                 }
-                break;
             }
+            break;
 
         case M_OUML:
             adi_umlaut_macro(KC_O, record);
