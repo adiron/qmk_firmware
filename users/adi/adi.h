@@ -306,6 +306,7 @@ combo_t key_combos[] = {
   [COMBO_CUT] = COMBO(combo_cut, LGUI(KC_X)),
   [COMBO_BSPC] = COMBO(combo_bspc, KC_BSPC),
   [COMBO_ALT_BSPC] = COMBO(combo_alt_bspc, LALT(KC_BSPC)),
+  [COMBO_UNDO] = COMBO(combo_undo, LGUI(KC_Z)),
   [COMBO_ALTAB] = COMBO(combo_altab, LGUI(KC_GRV)),
 };
 
